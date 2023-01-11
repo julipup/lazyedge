@@ -1,0 +1,1 @@
+{"name":"test2","version":"1.0.0","description":"LazyEdge generated route with entrypoint ./routes/test2.ts and name test2","main":"index.js","scripts":{"start":"faas-js-runtime ./index.js"},"keywords":[],"author":"","license":"Apache-2.0","dependencies":{"faas-js-runtime":"^0.9.0"},"devDependencies":{}}
