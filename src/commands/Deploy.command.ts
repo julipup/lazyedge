@@ -18,7 +18,7 @@ interface ImportInfo {
 
 // This function will use esbuild to bundle
 // and transpile (to js) our route entrypoint
-function buildRoute(deployId: string, route: Route): { imports: Array<ImportInfo> } {
+async function buildRoute(deployId: string, route: Route) {
     const outfile = `.lazyedge/deploy/${ deployId }/index.js`;
 
     // Building
@@ -26,41 +26,12 @@ function buildRoute(deployId: string, route: Route): { imports: Array<ImportInfo
         entryPoints: [route.entrypoint],
         platform: "node",
         bundle: true,
-        external: ["*"],
         metafile: true,
         outfile,
     });
-
-    return {
-        imports: result.metafile?.outputs[outfile].imports ?? [],
-    };
 };
 
-async function buildPackageJson(deployId: string, route: Route, imports: Array<ImportInfo>) {    
-    // Route dependencies
-    const dependencies: Record<string, string> = {};
-    
-    // Determining using original package.json (if exists)
-    // Trying to find original package.json with package versions
-    let packageInfo;
-    for (const file of findPackageJson(process.cwd())) {
-        packageInfo = await PackageJson.load(file.replace("\\package.json", ""));
-        break;
-    };
-
-    if (packageInfo) {
-        Object.entries(packageInfo?.content.dependencies ?? {}).forEach(([pkgName, version]) => {
-            if (imports.find((imp) => imp.path == pkgName)) {
-                dependencies[pkgName] = version;
-            };
-        });
-    };
-    
-    // Getting other imports' package versions from npm api
-    for (const { path: pkgName } of imports.filter((imp) => !dependencies[imp.path])) {
-        console.log("We need to download version of", pkgName, "from npm api");
-    };
-
+async function buildPackageJson(deployId: string, route: Route) {    
     // Generating new package.json
     const packageJson = {
         name: route.name,
@@ -75,7 +46,6 @@ async function buildPackageJson(deployId: string, route: Route, imports: Array<I
         license: "Apache-2.0",
         dependencies: {
             "faas-js-runtime": "^0.9.0",
-            ...dependencies
         },
         devDependencies: {},
     };
@@ -144,10 +114,10 @@ export const DeployCommand = BaseCommand()
             if (!existsSync(route.entrypoint)) throw new Error(`Entrypoint ${ route.entrypoint } for route with name ${ route.name } not found`);
 
             // Building our route
-            const { imports } = buildRoute(deployId, route);
+            await buildRoute(deployId, route);
 
             // Building package.json
-            await buildPackageJson(deployId, route, imports);
+            await buildPackageJson(deployId, route);
 
             // Generating func.yaml file
             await buildFuncYaml(deployId, route, config);
