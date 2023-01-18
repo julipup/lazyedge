@@ -1,0 +1,11 @@
+{
+  "name": "@lazyedge/adapters",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
