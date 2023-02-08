@@ -1,8 +1,0 @@
-# Deployment configurations
-deploy:
-  namespace: "knative-functions"
-
-# Routes configurations
-routes:
-  - name: "hello-there"
-    entrypoint: "./src/routes/hello_there.ts"
