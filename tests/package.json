@@ -1,0 +1,9 @@
+{
+  "name": "@lazyedge/tests",
+  "private": true,
+  "dependencies": {
+    "@japa/assert": "^1.3.7",
+    "@japa/runner": "^2.2.3",
+    "@japa/spec-reporter": "^1.3.3"
+  }
+}

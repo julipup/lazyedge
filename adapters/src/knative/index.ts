@@ -1,3 +1,3 @@
-import { AbstractAdapter } from "@lazyedge/types";
+import { AbstractAdapter } from '@lazyedge/types';
 
-export class KnativeAdapter implements AbstractAdapter {};
+export class KnativeAdapter implements AbstractAdapter {}

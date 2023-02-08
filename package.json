@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-node tests/bin/test",
+    "test:watch": "nodemon tests/bin/test.ts",
+    "lint": "npx eslint **/*.ts",
+    "lint:fix": "npx eslint **/*.ts --fix"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,17 @@
     "apps/cli",
     "adapters",
     "runtimes",
-    "types"
-  ]
+    "types",
+    "tests",
+    "helpers"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "eslint": "^8.33.0",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
