@@ -7,13 +7,13 @@ export function fetchAnnotation<T>(from: EntrypointAnnotations, named: string): 
 
 		// Parsing CallableFunction
 		switch (typeof value) {
-			case 'function':
-				// todo
-				// pass some kind of a Context object? I dunno
-				return value();
+		case 'function':
+			// todo
+			// pass some kind of a Context object? I dunno
+			return value();
 				
-			default:
-				return value as T;
+		default:
+			return value as T;
 		}
 	}
 

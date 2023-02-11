@@ -1,3 +1,3 @@
 export default function handler() {
-    return "hello world";
-};
+	return 'hello world';
+}

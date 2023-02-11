@@ -1,3 +1,3 @@
-import { BaseError } from "./BaseError.class";
+import { BaseError } from './BaseError.class';
 
-export class UnknownError extends BaseError {};
+export class UnknownError extends BaseError {}

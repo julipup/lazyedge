@@ -10,11 +10,11 @@ export class TypescriptProcessor implements AbstractLanguageProcessor {
 
 	public async bundleEntrypoint(): Promise<void> {
 		// Bundling entrypoint using esbuild
-		const external: Array<String> = [];
+		const external: Array<string> = [];
 		if (this.options.annotations['esbuild.external']) {
 			const filtered = filteredOfType(this.options.annotations['esbuild.external'], String);
 			filtered.forEach((value) => external.push(value));
-		};
+		}
         
 		await esbuild.build({
 			entryPoints: [this.options.entrypoint],

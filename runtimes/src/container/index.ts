@@ -25,8 +25,11 @@ export class ContainerRuntime implements AbstractRuntimeBuilder<ConstructorOptio
 			throw new LanguageNotSupportedError();
 		}
 
-		// Using processor to build docker container
+		// Bundling entrypoint using
 		await processor.bundleEntrypoint();
+
+		// Building docker container
+		await processor.buildContainer();
 
 		// Returning results
 		return {};
