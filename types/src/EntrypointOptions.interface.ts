@@ -1,7 +1,9 @@
-export type EntrypointAnnotations = Record<string, string | boolean | number | Array<string> | CallableFunction>;
+type AnnotationValue = string | boolean | number | Array<string> | CallableFunction;
+export type EntrypointAnnotations = Record<string, AnnotationValue>;
+export type ComputedEntrypointAnnotations = Record<string, Omit<AnnotationValue, 'CallableFunction'>>;
 
 export interface EntrypointOptions {
     entrypoint: string,
-    workdir: string,
-    annotations: EntrypointAnnotations,
+    outfile: string,
+    annotations: ComputedEntrypointAnnotations,
 }
