@@ -4,6 +4,6 @@ export type ComputedEntrypointAnnotations = Record<string, Omit<AnnotationValue,
 
 export interface EntrypointOptions {
     entrypoint: string,
-    outfile: string,
+    tmpDir: string,
     annotations: ComputedEntrypointAnnotations,
 }

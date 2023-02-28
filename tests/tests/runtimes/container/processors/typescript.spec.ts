@@ -6,25 +6,29 @@ import { EntrypointOptions } from '@lazyedge/types';
 test.group('Container Runtime -> TypeScript Processor', (group) => {
 	group.tap((test) => test.tags(['container-runtime', 'cr-typescript-processor']));
     
-	test('bundle simple handler function', async ({ assert }) => {
-		const entrypointPath = resolvePath(__dirname, './sources/base.ts');
-		const outfilePath = resolvePath(__dirname, 'tmp', 'base.js');
-        
-		const options = {
-			entrypoint: entrypointPath,
-			outfile: outfilePath,
-			annotations: {},
-		} as EntrypointOptions;
+	const entrypointPath = resolvePath(__dirname, './sources/base.ts');
+	const tmpDirPath = resolvePath(__dirname, 'tmp');
+	
+	const options = {
+		entrypoint: entrypointPath,
+		tmpDir: tmpDirPath,
+		annotations: {},
+	} as EntrypointOptions;
 
+	test('bundle simple handler function', async ({ assert }) => {
 		const processor = new TypescriptProcessor(options);
 		await processor.bundleEntrypoint();
 
 		// Testing output file
-		const handler = await require('./tmp/base.js');
-		assert.isFunction(handler.default);
-		assert.equal(handler.default(), 'hello world');
+		const handlerPackage = await require('./tmp/index.js');
+		assert.isFunction(handlerPackage.handle);
+		assert.equal(handlerPackage.handle(), 'hello world');
 	});
 
-	// todo
-	// build docker container
+	test('build docker container', async () => {
+		const processor = new TypescriptProcessor(options);
+
+		await processor.bundleEntrypoint();
+		await processor.buildContainer();
+	});
 });
