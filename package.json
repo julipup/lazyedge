@@ -28,12 +28,14 @@
     "helpers"
   ],
   "devDependencies": {
+    "@types/signale": "^1.4.4",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.33.0",
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "signale": "^1.4.0"
   }
 }

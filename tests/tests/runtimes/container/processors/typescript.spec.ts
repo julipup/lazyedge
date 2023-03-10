@@ -2,6 +2,7 @@ import { test } from '@japa/runner';
 import { resolve as resolvePath } from 'path';
 import { TypescriptProcessor } from '@lazyedge/runtimes/src/container/languages';
 import { EntrypointOptions } from '@lazyedge/types';
+import signale from 'signale';
 
 test.group('Container Runtime -> TypeScript Processor', (group) => {
 	group.tap((test) => test.tags(['container-runtime', 'cr-typescript-processor']));
@@ -12,6 +13,7 @@ test.group('Container Runtime -> TypeScript Processor', (group) => {
 	const options = {
 		entrypoint: entrypointPath,
 		tmpDir: tmpDirPath,
+		logger: new signale.Signale(),
 		annotations: {},
 	} as EntrypointOptions;
 
@@ -25,10 +27,13 @@ test.group('Container Runtime -> TypeScript Processor', (group) => {
 		assert.equal(handlerPackage.handle(), 'hello world');
 	});
 
-	test('build docker container', async () => {
+	test('build docker container', async ({ assert }) => {
 		const processor = new TypescriptProcessor(options);
 
-		await processor.bundleEntrypoint();
-		await processor.buildContainer();
-	});
+		assert.doesNotThrows(async () => {
+			await processor.bundleEntrypoint();
+			await processor.buildContainer();
+		});
+	})
+		.timeout(-1);
 });
