@@ -1,8 +1,8 @@
-import { EntrypointOptions } from '@lazyedge/types';
+import { EntrypointOptions } from "@lazyedge/types";
 
 export abstract class AbstractLanguageProcessor {
-	constructor(options: EntrypointOptions) {}
+  constructor(options: EntrypointOptions) {}
 
-    public abstract bundleEntrypoint(): void;
-    public abstract buildContainer(): void;
+  public abstract bundleEntrypoint(): void;
+  public abstract buildContainer(): void;
 }

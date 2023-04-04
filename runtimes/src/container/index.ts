@@ -1,41 +1,45 @@
-import { AbstractRuntimeBuilder, EntrypointOptions, LanguageNotSupportedError } from '@lazyedge/types';
-import { extname } from 'path';
-import { ConstructorOptions } from './ConstructorOptions.interface';
-import { AbstractLanguageProcessor, TypescriptProcessor } from './languages';
+import {
+  AbstractRuntimeBuilder,
+  EntrypointOptions,
+  LanguageNotSupportedError,
+} from "@lazyedge/types";
+import { extname } from "path";
+import { ConstructorOptions } from "./ConstructorOptions.interface";
+import { AbstractLanguageProcessor, TypescriptProcessor } from "./languages";
 
-export class ContainerRuntime implements AbstractRuntimeBuilder<ConstructorOptions> {
-	constructor(
-        private readonly options: ConstructorOptions,
-	) {}
+export class ContainerRuntime
+  implements AbstractRuntimeBuilder<ConstructorOptions>
+{
+  constructor(private readonly options: ConstructorOptions) {}
 
-	// HandleEntrypoint function
-	public async handleEntrypoint(options: EntrypointOptions): Promise<EntrypointHandlerResult> {
-		const ext = extname(options.entrypoint);
-		let processor: AbstractLanguageProcessor;
+  // HandleEntrypoint function
+  public async handleEntrypoint(
+    options: EntrypointOptions
+  ): Promise<EntrypointHandlerResult> {
+    const ext = extname(options.entrypoint);
+    let processor: AbstractLanguageProcessor;
 
-		// Bundling this entrypoint depending on it's extension
-		// P.S. Currently only TypeScript is supported
-		switch (ext) {
-		case '.ts':
-			// Using TypescriptProcessor to do this job
-			processor = new TypescriptProcessor(options);
-			break;
-        
-		default:
-			throw new LanguageNotSupportedError();
-		}
+    // Bundling this entrypoint depending on it's extension
+    // P.S. Currently only TypeScript is supported
+    switch (ext) {
+      case ".ts":
+        // Using TypescriptProcessor to do this job
+        processor = new TypescriptProcessor(options);
+        break;
 
-		// Bundling entrypoint using
-		await processor.bundleEntrypoint();
+      default:
+        throw new LanguageNotSupportedError();
+    }
 
-		// Building docker container
-		await processor.buildContainer();
+    // Bundling entrypoint using
+    await processor.bundleEntrypoint();
 
-		// Returning results
-		return {};
-	}
+    // Building docker container
+    await processor.buildContainer();
+
+    // Returning results
+    return {};
+  }
 }
 
-export interface EntrypointHandlerResult {
-
-}
+export interface EntrypointHandlerResult {}

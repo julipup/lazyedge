@@ -1,3 +1,1 @@
-export class AbstractAdapter {
-    
-}
+export class AbstractAdapter {}

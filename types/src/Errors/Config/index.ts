@@ -1,2 +1,2 @@
-export * from './InvalidConfig.error';
-export * from './ConfigNotFound.error';
+export * from "./InvalidConfig.error";
+export * from "./ConfigNotFound.error";

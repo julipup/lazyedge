@@ -1,2 +1,2 @@
-export * from './FetchAnnotation.helper';
-export * from './AnnotationsHelper.class';
+export * from "./FetchAnnotation.helper";
+export * from "./AnnotationsHelper.class";

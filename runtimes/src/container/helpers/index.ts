@@ -1,2 +1,2 @@
-export * from './isArrayOf.helper';
-export * from './filteredOfType.helper';
+export * from "./isArrayOf.helper";
+export * from "./filteredOfType.helper";

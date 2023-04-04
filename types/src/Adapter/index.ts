@@ -1,1 +1,1 @@
-export * from './AbstractAdapter.class';
+export * from "./AbstractAdapter.class";

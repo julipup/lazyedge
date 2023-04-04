@@ -1,2 +1,2 @@
-export * from './AbstractLanguageProcessor.class';
-export * from './typescript';
+export * from "./AbstractLanguageProcessor.class";
+export * from "./typescript";

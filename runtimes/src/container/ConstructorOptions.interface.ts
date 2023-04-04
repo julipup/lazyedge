@@ -1,3 +1,1 @@
-export interface ConstructorOptions {
-    
-}
+export interface ConstructorOptions {}

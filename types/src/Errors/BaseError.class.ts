@@ -1,3 +1,1 @@
-export class BaseError {
-
-}
+export class BaseError {}
