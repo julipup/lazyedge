@@ -1,1 +1,1 @@
-export class BaseError {}
+export class BaseError extends Error {}
