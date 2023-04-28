@@ -30,7 +30,7 @@ export class ConfigFileImporter {
       return new ImporterResult(imported);
     } catch (error: any) {
       if (error?.code == "MODULE_NOT_FOUND") {
-        throw new ConfigNotFoundError();
+        throw new ConfigNotFoundError(file);
       }
 
       throw new UnknownError();

@@ -3,32 +3,13 @@ import { Schema } from "jsonschema";
 export default {
   type: "object",
   properties: {
-    deploy: {
-      type: "object",
+    environments: {
+      type: "array",
       required: true,
-      properties: {
-        namespace: {
-          type: "string",
-          required: false,
-        },
-        registry: {
-          type: "string",
-          required: true,
-        },
-        builder: {
-          type: "object",
-          required: false,
-          properties: {
-            type: {
-              type: "string",
-              required: false,
-              enum: ["s2i", "pack"],
-            },
-            platform: {
-              type: "string",
-              required: false,
-            },
-          },
+      items: {
+        type: "object",
+        properties: {
+
         },
       },
     },
@@ -39,6 +20,10 @@ export default {
       items: {
         type: "object",
         properties: {
+          adapter: {
+            type: "object",
+            required: true
+          },
           name: {
             type: "string",
             required: true,
@@ -52,4 +37,5 @@ export default {
       minItems: 0,
     },
   },
+  additionalProperties: false,
 } as Schema;

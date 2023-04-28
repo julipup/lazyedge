@@ -1,23 +1,24 @@
 import {
-  AbstractRuntimeBuilder,
   EntrypointOptions,
+  EntrypointNotFound,
   LanguageNotSupportedError,
 } from "@lazyedge/types";
 import { extname } from "path";
-import { ConstructorOptions } from "./ConstructorOptions.interface";
 import { AbstractLanguageProcessor, TypescriptProcessor } from "./languages";
+import { existsSync as isFileExists } from "fs";
 
-export class ContainerRuntime
-  implements AbstractRuntimeBuilder<ConstructorOptions>
-{
-  constructor(private readonly options: ConstructorOptions) {}
-
+export class ContainerRuntime {
   // HandleEntrypoint function
   public async handleEntrypoint(
     options: EntrypointOptions
-  ): Promise<EntrypointHandlerResult> {
+  ): Promise<void> {
     const ext = extname(options.entrypoint);
     let processor: AbstractLanguageProcessor;
+
+    // Checking if our entrypoint even exists
+    if (!isFileExists(options.entrypoint)) {
+      throw new EntrypointNotFound(options.entrypoint);
+    };
 
     // Bundling this entrypoint depending on it's extension
     // P.S. Currently only TypeScript is supported
@@ -38,8 +39,6 @@ export class ContainerRuntime
     await processor.buildContainer();
 
     // Returning results
-    return {};
+    return;
   }
 }
-
-export interface EntrypointHandlerResult {}

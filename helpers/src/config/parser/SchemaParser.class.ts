@@ -1,7 +1,6 @@
 import { InvalidConfigError, V1SchemaInterface } from "@lazyedge/types";
 import { V1Schema } from "../schemas";
 import { validate } from "jsonschema";
-import { fetchAnnotation } from "../../annotations";
 
 export class SchemaParser {
   constructor(schema: Object) {
@@ -9,7 +8,7 @@ export class SchemaParser {
       required: true,
     });
 
-    if (!result.valid) throw new InvalidConfigError();
+    if (!result.valid) throw new InvalidConfigError(result.errors);
 
     this.schema = schema as V1SchemaInterface;
   }
@@ -18,20 +17,5 @@ export class SchemaParser {
 
   public raw(): V1SchemaInterface {
     return this.schema;
-  }
-
-  public computed(): V1SchemaInterface {
-    const computed = this.raw();
-
-    // Computing computable annotations
-    for (const route of computed.routes) {
-      if (route.annotations) {
-        for (const key of Object.keys(route.annotations)) {
-          route.annotations[key] = fetchAnnotation<any>(route.annotations, key);
-        }
-      }
-    }
-
-    return computed;
   }
 }

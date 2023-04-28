@@ -1,6 +1,9 @@
 {
   "name": "@lazyedge/tests",
   "private": true,
+  "scripts": {
+    "dev": "tsc --build --verbose --watch"
+  },
   "dependencies": {
     "@japa/assert": "^1.3.7",
     "@japa/runner": "^2.2.3",

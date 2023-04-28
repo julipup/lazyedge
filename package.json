@@ -7,7 +7,10 @@
     "test": "ts-node tests/bin/test",
     "test:watch": "nodemon tests/bin/test.ts",
     "prettier:check": "npx prettier --check --",
-    "prettier:fix": "npx prettier --write --"
+    "prettier:fix": "npx prettier --write --",
+
+    "__comment": "urgh, that's cringe",
+    "dev": "npx concurrently \"npm run dev -w apps/cli\" \"npm run dev -w adapters\" \"npm run dev -w types\" \"npm run dev -w helpers\""
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,6 @@
   "workspaces": [
     "apps/cli",
     "adapters",
-    "runtimes",
     "types",
     "tests",
     "helpers"

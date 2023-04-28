@@ -2,9 +2,15 @@
   "name": "@lazyedge/types",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "tsc --build --verbose --watch"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
 }

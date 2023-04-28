@@ -1,9 +1,9 @@
 import { EntrypointBuildError, EntrypointOptions, UnimplementedFeatureError } from "@lazyedge/types";
 import { AbstractLanguageProcessor } from "../AbstractLanguageProcessor.class";
-import { filteredOfType } from "../../helpers";
+import { filteredOfType } from "../../../helpers";
 import esbuild from "esbuild";
 import { resolve as resolvePath } from "path";
-import { getAssetsDirectoryPath } from "../../assets";
+import { getAssetsDirectoryPath } from "../../../helpers";
 import { copyFile, writeFile } from "fs/promises";
 import { DockerInstance } from "../../Docker.instance";
 

@@ -1,20 +1,14 @@
-import { EntrypointAnnotations } from "../EntrypointOptions.interface";
+import { AbstractAdapter } from "../Adapter";
+import { AbstractEnvironment } from "../Environment";
 
-interface DeploymentConfiguration {
-  namespace?: string;
-  registry: string;
-  builder?: {
-    platform?: string;
-  };
-}
-
-interface Route {
+export interface AbstractRoute {
+  environmentId: string;
+  adapter: AbstractAdapter<AbstractRoute, AbstractEnvironment>,
   name: string;
   entrypoint: string;
-  annotations?: EntrypointAnnotations;
 }
 
 export interface V1SchemaInterface {
-  deploy: DeploymentConfiguration;
-  routes: Array<Route>;
+  environments: Array<AbstractEnvironment>;
+  routes: Array<AbstractRoute>;
 }

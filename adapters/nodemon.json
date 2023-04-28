@@ -1,0 +1,8 @@
+{
+    "exec": "tsc --build --verbose",
+    "watch": ["src"],
+    "ext": ".ts",
+    "events": {
+        "start": "npx cpy-cli ./assets/ ./dist/"
+    }
+}

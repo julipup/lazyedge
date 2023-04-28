@@ -2,8 +2,11 @@
   "name": "@lazyedge/adapters",
   "version": "1.0.0",
   "description": "",
+  "main": "./dist/index.js",
+  "files": ["./dist/**/*", "./package.json"],
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
