@@ -10,16 +10,18 @@ In the future - most likely - I will make something more useful out of this proj
   - [x] Add ability to import CommonJS, ESM or TypeScript configs
   - [ ] Include type definitions in bundled package
 - [x] Rewrite build and deploy logic to use abstract JS classes like **AbstractAdapter** and **AbstractRuntime**
-- [ ] Write first **adapter** and **runtime** plugins:
-  - [ ] _@lazyedge/runtimes/container_: Container runtime
-    - [ ] Add ability to customize bundled application's package.json
-    - [ ] Add ability to include custom files and folder into bundle
-    - [ ] Add ability to specify custom Dockerfile for deployments
-  - [ ] _@lazyedge/adapters/knative_: Knative adapter, that deploys builded container _(that was built using @lazyedge/runtimes/container)_ to Knative instance on kubernetes cluster
+- [ ] Write first **adapter** plugin:
+  - [ ] _@lazyedge/adapters/knative_: Knative adapter, that deploys builded container to Knative instance on kubernetes cluster
+    - [x] Implement TypeScript language processor
+    - [ ] Implement environment configuration
+    - [ ] Fully implement deployment logic
 - [ ] Create some samples and templates
 - [ ] Global and per-function configuration:
   - [ ] Environmental variables
   - [ ] Kubernetes labels
-- [x] Per-function annotations
-  - [x] Boolean, number and string type annotations
-  - [x] Computable annotations
+- [ ] Fix tests
+- [ ] Add new tests to cover new logic and features
+- [x] Add more fancy and easy-to-understand errors
+- [ ] Add automatically generated route typings
+
+  Every serverless service has different runtime globals and imports, and we need to account them while we're developing our functions. My proposition is to add `.generateTypings(...)` function to _AbstractAdapter_. This function will take our route's location and generate language-specific type helpers, which will tell our IDE which globals and imports are available.
