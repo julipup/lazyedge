@@ -1,13 +1,15 @@
-import { V1SchemaInterface } from "@lazyedge/types";
+const { V1SchemaInterface } = require("@lazyedge/types");
+const { KnativeAdapter, KnativeEnvironment } = require("@lazyedge/adapters");
 
-export default {
-  deploy: {
-    registry: "https://registry.odzi.dog",
-  },
-  routes: [
-    {
-      name: "test",
-      entrypoint: "./routes/index.ts",
-    },
+module.exports = {
+  environments: [
+    KnativeEnvironment.configure({}),
   ],
-} as V1SchemaInterface;
+  routes: [
+    ...KnativeAdapter.routes([
+      {
+        entrypoint: "./routes/test.ts",
+      }
+    ])
+  ],
+} as typeof V1SchemaInterface;

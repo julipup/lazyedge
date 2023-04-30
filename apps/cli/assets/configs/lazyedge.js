@@ -1,12 +1,14 @@
-export default {
-  deploy: {
-    registry: "unknown registry",
-  },
+const { KnativeAdapter, KnativeEnvironment } = require("@lazyedge/adapters");
+
+module.exports = {
+  environments: [
+    KnativeEnvironment.configure({}),
+  ],
   routes: [
-    {
-      name: "test",
-      entrypoint: "./routes/index.ts",
-    },
+    ...KnativeAdapter.routes([
+      {
+        entrypoint: "./routes/test.ts",
+      }
+    ])
   ],
 };
-  

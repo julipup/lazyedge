@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
+  "files": ["./dist/**/*", "./package.json"],
+  "types": "./dist/index.d.ts",
   "keywords": [],
-  "author": "",
+  "author": "@julipup",
   "license": "ISC",
-  "private": true,
   "scripts": {
-    "dev": "tsc --build --verbose --watch"
+    "dev": "tsc --verbose --watch",
+    "build": "tsc",
+    "publish": "npm publish --access public"
   },
   "dependencies": {
     "jsonschema": "^1.4.1"

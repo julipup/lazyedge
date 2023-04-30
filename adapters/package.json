@@ -5,10 +5,13 @@
   "main": "./dist/index.js",
   "files": ["./dist/**/*", "./package.json"],
   "types": "./dist/index.d.ts",
+  "private": false,
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build": "tsc && npx cpy-cli ./assets/ ./dist/",
+    "publish": "npm publish --access public"
   },
   "keywords": [],
-  "author": "",
+  "author": "@julipup",
   "license": "ISC"
 }

@@ -10,7 +10,9 @@
     "prettier:fix": "npx prettier --write --",
 
     "__comment": "urgh, that's cringe",
-    "dev": "npx concurrently \"npm run dev -w apps/cli\" \"npm run dev -w adapters\" \"npm run dev -w types\" \"npm run dev -w helpers\""
+    "dev": "npx concurrently \"npm run dev -w apps/cli\" \"npm run dev -w adapters\" \"npm run dev -w types\" \"npm run dev -w helpers\"",
+    "build": "npx concurrently \"npm run build -w apps/cli\" \"npm run build -w adapters\" \"npm run build -w types\" \"npm run build -w helpers\"",
+    "publish": "npm run build && npx concurrently \"npm run publish -w apps/cli\" \"npm run publish -w adapters\" \"npm run publish -w types\" \"npm run publish -w helpers\""
   },
   "repository": {
     "type": "git",
