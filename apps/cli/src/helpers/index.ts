@@ -1,2 +1,2 @@
-export * from './parseConfigFIle';
-export * from './getAssetsDirectory';
+export * from "./parseConfigFIle";
+export * from "./getAssetsDirectory";

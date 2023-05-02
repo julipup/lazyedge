@@ -8,9 +8,7 @@ export default {
       required: true,
       items: {
         type: "object",
-        properties: {
-
-        },
+        properties: {},
       },
     },
 
@@ -22,7 +20,7 @@ export default {
         properties: {
           adapter: {
             type: "object",
-            required: true
+            required: true,
           },
           name: {
             type: "string",

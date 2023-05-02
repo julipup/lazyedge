@@ -5,5 +5,5 @@ export function BaseCommand() {
     "-c, --config <location>",
     "config file location",
     "lazyedge.js"
-  )
+  );
 }

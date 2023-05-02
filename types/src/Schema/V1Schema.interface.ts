@@ -3,7 +3,7 @@ import { AbstractEnvironment } from "../Environment";
 
 export interface AbstractRoute {
   environmentId: string;
-  adapter: AbstractAdapter<AbstractRoute, AbstractEnvironment<AbstractRoute>>,
+  adapter: AbstractAdapter<AbstractRoute, AbstractEnvironment<AbstractRoute>>;
   name: string;
   entrypoint: string;
 }

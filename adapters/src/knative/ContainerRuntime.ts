@@ -12,23 +12,24 @@ export class ContainerRuntime {
   private readonly logger = new Signale().scope("container runtime");
 
   // HandleEntrypoint function
-  public async handleEntrypoint(
-    options: BaseEntrypointOptions
-  ): Promise<void> {
+  public async handleEntrypoint(options: BaseEntrypointOptions): Promise<void> {
     const ext = extname(options.entrypoint);
     let processor: AbstractLanguageProcessor;
 
     // Checking if our entrypoint even exists
     if (!isFileExists(options.entrypoint)) {
       throw new EntrypointNotFound(options.entrypoint);
-    };
+    }
 
     // Bundling this entrypoint depending on it's extension
     // P.S. Currently only TypeScript is supported
     switch (ext) {
       case ".ts":
         // Using TypescriptProcessor to do this job
-        processor = new TypescriptProcessor({ ...options, logger: this.logger });
+        processor = new TypescriptProcessor({
+          ...options,
+          logger: this.logger,
+        });
         break;
 
       default:

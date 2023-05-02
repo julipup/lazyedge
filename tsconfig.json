@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "composite": true,
-    "outDir": "dist",
+    "outDir": "dist"
   },
   "references": [
     {

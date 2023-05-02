@@ -1,5 +1,5 @@
-import { resolve as resolvePath } from 'path';
+import { resolve as resolvePath } from "path";
 
 export function getAssetsDirectoryPath(): string {
-    return resolvePath(__dirname, '..', 'assets');
+  return resolvePath(__dirname, "..", "assets");
 }

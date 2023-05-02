@@ -25,6 +25,7 @@ In the future - most likely - I will make something more useful out of this proj
 - [ ] Add automatically generated route typings
 
   Every serverless service has different runtime globals and imports, and we need to account them while we're developing our functions. My proposition is to add `.generateTypings(...)` function to _AbstractAdapter_. This function will take our route's location and generate language-specific type helpers, which will tell our IDE which globals and imports are available.
+
 - [ ] Fix config file importing issues - because it, for some reason, can not import esm files correctly.
 - [x] Space system
 - [ ] Add documentation for spaces system

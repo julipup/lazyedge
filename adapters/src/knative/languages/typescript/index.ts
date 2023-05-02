@@ -1,4 +1,8 @@
-import { EntrypointBuildError, BaseEntrypointOptions, UnimplementedFeatureError } from "@lazyedge/types";
+import {
+  EntrypointBuildError,
+  BaseEntrypointOptions,
+  UnimplementedFeatureError,
+} from "@lazyedge/types";
 import { AbstractLanguageProcessor } from "../AbstractLanguageProcessor.class";
 import esbuild from "esbuild";
 import { resolve as resolvePath } from "path";
@@ -70,13 +74,14 @@ export class TypescriptProcessor implements AbstractLanguageProcessor {
         if (error) {
           console.log("error!");
           throw new EntrypointBuildError();
-        };
+        }
 
-        if (logger) logger.scope("build").success("Container successfully built!");
-        
+        if (logger)
+          logger.scope("build").success("Container successfully built!");
+
         // todo
         // add some kind of a result object?
-        
+
         return resolve(true);
       };
     }
@@ -90,7 +95,11 @@ export class TypescriptProcessor implements AbstractLanguageProcessor {
     }
 
     return new Promise((resolve, reject) => {
-      DockerInstance.modem.followProgress(buildStream, buildOnFinishedHandler(resolve), onProgress);
+      DockerInstance.modem.followProgress(
+        buildStream,
+        buildOnFinishedHandler(resolve),
+        onProgress
+      );
     });
   }
 

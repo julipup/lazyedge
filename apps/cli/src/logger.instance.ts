@@ -1,11 +1,11 @@
 import { Signale } from "signale";
 
 export function getDefaultLogger() {
-    return new Signale({});
-};
+  return new Signale({});
+}
 
 export function getInteractiveLogger() {
-    return new Signale({
-        interactive: true
-    })
-};
+  return new Signale({
+    interactive: true,
+  });
+}
