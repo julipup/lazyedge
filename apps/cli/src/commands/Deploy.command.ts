@@ -11,10 +11,15 @@ export const DeployCommand = BaseCommand()
   .description(
     "Validate and then deploy all functions to Kubernetes cluster using knative func cli tool"
   )
-  .action(async ({ config: configFilePath }) => {
+  .option(
+    "-s, --space <space>", 
+    "specify space name, in which we should deploy all these edge functions",
+    "default"
+  )
+  .action(async ({ config: configFilePath, space: spaceId }) => {
     const logger = getDefaultLogger();
     const interactiveLogger = getInteractiveLogger();
-    const context = new ExecutionContext();
+    const context = new ExecutionContext(spaceId);
 
     try {
       await context.parseConfiguration(resolvePath(process.cwd(), configFilePath));
@@ -25,28 +30,36 @@ export const DeployCommand = BaseCommand()
     // Empty string to seperate sections
     logger.log("");
     
-    context.routes.forEach((route) => {
-      logger.scope("route", route.name).log(`${ chalk.blue(route.entrypoint) }`)
+    const routesArray = [...context.routes.values()]
+      .sort((x, y) => x.willBeDeployed ? -1 : 1);
+
+    // todo
+    // prettify this damn message
+    routesArray.forEach((route) => {
+      logger.scope("route", route.spaceIds.length > 0 ? route.spaceIds.map((x) => x == spaceId ? chalk.blue(x) : x).join(", ") : chalk.red("no environments, no space"), route.willBeDeployed ? chalk.green("Deploy") : chalk.red("Skip")).log(`${ chalk.blue(route.entrypoint) }`)
     });
 
     logger.log("");
 
     // Asking if user wants to deploy these routes
-    const { confirm: doDeploy } = await Enquirer.prompt({
+    const { confirm: isRoutesCorrect } = await Enquirer.prompt({
       type: 'confirm',
       name: 'confirm',
-      message: `Do you really want to deploy these routes on your currently selected environment?\n\n${chalk.gray("Beware! yeah be aware. of something...")}`,
+      message: `Do you really want to deploy these routes in ${chalk.blue(spaceId)} space?\n\n${chalk.gray("Beware!...")}`,
       initial: false,
     }) as { confirm: boolean };
 
-    if (!doDeploy) return;
+    if (!isRoutesCorrect) return;
 
+    // todo
+    // show selected environments? and their configurations? (overkill, probably)
+    
     // Deploying all these routes using their adapters
-    for (const [_, route] of context.routes.entries()) {
+    for (const route of routesArray.filter((route) => route.willBeDeployed)) {
       const adapterName = route.adapter.constructor.name;
       const environmentId = route.environmentId;
 
-      interactiveLogger.scope("route", route.name).info(`Deploying edge function using ${ chalk.blue(route.adapter.constructor.name) }`);
-      await route.adapter.handleRoute(context.environments.get(environmentId)!, route);
+      interactiveLogger.scope("route", route.name).info(`Deploying edge function ${ chalk.blue(route.name) } on ${ chalk.blue(spaceId) } space using ${ chalk.blue(route.adapter.constructor.name) }`);
+      await route.adapter.handleRoute(context.getEnvironment(environmentId)!, route);
     };
   });

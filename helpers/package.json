@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
-  "files": ["./dist/**/*", "./package.json"],
+  "files": [
+    "./dist/**/*",
+    "./package.json"
+  ],
   "types": "./dist/index.d.ts",
   "keywords": [],
   "author": "@julipup",
   "license": "ISC",
   "scripts": {
-    "dev": "tsc --verbose --watch",
+    "dev": "tsc --build --verbose --watch",
     "build": "tsc",
     "publish": "npm publish --access public"
   },

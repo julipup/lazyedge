@@ -1,16 +1,19 @@
 import {
-  EntrypointOptions,
+  BaseEntrypointOptions,
   EntrypointNotFound,
   LanguageNotSupportedError,
 } from "@lazyedge/types";
 import { extname } from "path";
 import { AbstractLanguageProcessor, TypescriptProcessor } from "./languages";
 import { existsSync as isFileExists } from "fs";
+import { Signale } from "signale";
 
 export class ContainerRuntime {
+  private readonly logger = new Signale().scope("container runtime");
+
   // HandleEntrypoint function
   public async handleEntrypoint(
-    options: EntrypointOptions
+    options: BaseEntrypointOptions
   ): Promise<void> {
     const ext = extname(options.entrypoint);
     let processor: AbstractLanguageProcessor;
@@ -25,7 +28,7 @@ export class ContainerRuntime {
     switch (ext) {
       case ".ts":
         // Using TypescriptProcessor to do this job
-        processor = new TypescriptProcessor(options);
+        processor = new TypescriptProcessor({ ...options, logger: this.logger });
         break;
 
       default:

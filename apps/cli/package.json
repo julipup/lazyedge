@@ -1,6 +1,6 @@
 {
   "name": "@lazyedge/cli",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "This is as much of a test and uncooked product as possible. Its main goal (for now) is to use the Knative Func CLI to publish functions.",
   "main": "./dist/index.js",
   "bin": {
@@ -26,17 +26,15 @@
   },
   "homepage": "https://github.com/julipup/lazyedge#readme",
   "dependencies": {
+    "@lazyedge/adapters": "^1.0.0",
     "@lazyedge/helpers": "^1.0.0",
+    "@lazyedge/types": "^1.0.0",
     "chalk": "^4.1.2",
     "commander": "^9.5.0",
     "enquirer": "^2.3.6",
-    "inquirer": "^9.1.5",
-    "jsonschema": "^1.4.1",
-    "yaml": "^2.2.1"
+    "jsonschema": "^1.4.1"
   },
   "devDependencies": {
-    "@types/figlet": "^1.5.5",
-    "@types/inquirer": "^9.0.3",
     "@types/node": "^18.11.18",
     "typescript": "^4.9.4"
   }

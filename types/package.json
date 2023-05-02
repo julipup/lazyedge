@@ -9,7 +9,7 @@
   "author": "@julipup",
   "license": "ISC",
   "scripts": {
-    "dev": "tsc --verbose --watch",
+    "dev": "tsc --build --verbose --watch",
     "build": "tsc",
     "publish": "npm publish --access public"
   },

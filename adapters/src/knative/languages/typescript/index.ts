@@ -1,14 +1,13 @@
-import { EntrypointBuildError, EntrypointOptions, UnimplementedFeatureError } from "@lazyedge/types";
+import { EntrypointBuildError, BaseEntrypointOptions, UnimplementedFeatureError } from "@lazyedge/types";
 import { AbstractLanguageProcessor } from "../AbstractLanguageProcessor.class";
-import { filteredOfType } from "../../../helpers";
 import esbuild from "esbuild";
 import { resolve as resolvePath } from "path";
 import { getAssetsDirectoryPath } from "../../../helpers";
 import { copyFile, writeFile } from "fs/promises";
-import { DockerInstance } from "../../Docker.instance";
+import { DockerInstance } from "../../DockerInstance";
 
 export class TypescriptProcessor implements AbstractLanguageProcessor {
-  constructor(private readonly options: EntrypointOptions) {}
+  constructor(private readonly options: BaseEntrypointOptions) {}
 
   public async bundleEntrypoint(): Promise<void> {
     const { tmpDir, entrypoint } = this.options;
@@ -23,6 +22,9 @@ export class TypescriptProcessor implements AbstractLanguageProcessor {
       // Customizable options
       external: this.getExternalPackages(),
     });
+
+    // todo
+    // Checking our built file (it needs to export handle function)
 
     // Generating package.json (with custom packages and information,
     // if specified in annotations)
@@ -47,9 +49,6 @@ export class TypescriptProcessor implements AbstractLanguageProcessor {
 
     // todo
     // implement custom dockerfile feature
-    if (this.options.annotations["typescript.dockerfile"])
-      throw new UnimplementedFeatureError();
-
     await copyFile(
       resolvePath(assetsPath, "dockerfiles/Dockerfile.typescript"),
       resolvePath(tmpDir, "Dockerfile")
@@ -96,16 +95,8 @@ export class TypescriptProcessor implements AbstractLanguageProcessor {
   }
 
   private getExternalPackages(): Array<string> {
-    const packages: Array<string> = [];
-    if (this.options.annotations["esbuild.external"]) {
-      const filtered = filteredOfType(
-        this.options.annotations["esbuild.external"],
-        String
-      );
-      filtered.forEach((value) => packages.push(value as string));
-    }
-
-    return packages;
+    // @todo implement
+    return [];
   }
 
   private getDefaultPackageJson() {
